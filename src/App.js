@@ -14,16 +14,21 @@ function Counter() {
 
   return (
     <div>
-      <Count
-        name="Step"
-        Count={stepCount}
-        onIncrement={() => setStepCount(stepCount + 1)}
-        onDecrement={() => setStepCount(stepCount - 1)}
-      />
+      <div>
+        <input
+          type="range"
+          min={0}
+          max={10}
+          value={stepCount}
+          onChange={(e) => setStepCount(Number(e.target.value))}
+        />
+        <span>step:{stepCount}</span>
+      </div>
 
       <Count
         name="Count"
         Count={count}
+        setCount={setCount}
         onIncrement={() => setCount(count + stepCount)}
         onDecrement={() => setCount(count - stepCount)}
       />
@@ -32,13 +37,15 @@ function Counter() {
   );
 }
 
-function Count({ name, Count, onIncrement, onDecrement }) {
+function Count({ name, setCount, Count, onIncrement, onDecrement }) {
   return (
     <div className="steps">
       <button onClick={onDecrement}>-</button>
-      <p>
-        {name}: {Count}
-      </p>
+      <input
+        type="text"
+        value={Count}
+        onChange={(e) => setCount(Number(e.target.value))}
+      />
       <button onClick={onIncrement}>+</button>
     </div>
   );
